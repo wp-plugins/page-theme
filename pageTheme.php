@@ -44,8 +44,14 @@ class PageTheme {
         $this->currentpage = $page;
         
         // Load page option settings
+	// Some versions of Wordpress deserialize automatically. WP3.0 doesn't.
         global $wp_version;
-	$this->options = unserialize(get_option("pageTheme_options"));
+	try {
+		$this->options = unserialize(get_option("pageTheme_options"));
+	}
+	catch(Exception $e) {
+		$this->options = get_option("pageTheme_options");
+	}
         
         if (gettype($this->options)!="array"){
             $this->options = array();
