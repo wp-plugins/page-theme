@@ -3,7 +3,7 @@
 Plugin Name: Page Theme
 Plugin URI: http://wordpress.org/extend/plugins/page-theme/
 Description: Per-page theme selection. With many thanks to Stephen Carroll's page plug-in. I re-used most of it :)
-Version: 1.0
+Version: 1.2
 Author: Chris Ravenscroft
 Author URI: http://nexus.zteo.com
 */

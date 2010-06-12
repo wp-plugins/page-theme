@@ -3,7 +3,7 @@ Contributors: Chris Ravenscroft
 Tags: page, pages, url, interface, appearance, style, CSS, theme, themes, skin
 Requires at least: 2.6.1
 Tested up to: 3.0.0
-Stable tag: 1.0
+Stable tag: 1.2
 
 Specify the theme (not template, that is already taken care of by Wordpress) you wish to use with each given page.
 
