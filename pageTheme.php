@@ -126,6 +126,7 @@ class PageThemeAdminManager {
     function displayAdminHead() {
         $remoteLoader = '/wp-admin/edit.php?post_type=page&pcompaction=pcomphtml';
         $remoteSave = '/wp-admin/edit.php?post_type=page&pcompaction=pcompsave';
+        $loadingHTML = '<img src="'.plugin_dir_url(__FILE__)."loading.gif\" />";
         ?>
         <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) ?>emposha/fcbklistselection.css" type="text/css" media="screen" />
         <script type="text/javascript" src="<?php echo plugin_dir_url(__FILE__) ?>emposha/fcbklistselection.js" />
@@ -148,7 +149,7 @@ class PageThemeAdminManager {
                     return "<tr" + class_str + " id='pcompcurrent'><td colspan='"+columns_count+"'><div id='pcompcontainer'></div></td></tr>"
                 });
                 var post_id = this.current_theme_screen_comp.id.replace(/ptheme/, '');
-                jQuery('#pcompcontainer').html("Hold it...").load(
+                jQuery('#pcompcontainer').html('<?php echo $loadingHTML; ?>').load(
                     '<?php echo $remoteLoader; ?>&post_id=' + post_id, function() {
                     CCHandler.prepare_for_selection();
                 });
