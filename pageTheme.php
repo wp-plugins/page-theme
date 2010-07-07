@@ -3,7 +3,7 @@
 Plugin Name: Page Theme
 Plugin URI: http://wordpress.org/extend/plugins/page-theme/
 Description: Per-page, per-post theme selection. Works with both SEO and non-SEO permalinks.
-Version: 1.3
+Version: 1.4
 Author: Chris Ravenscroft
 Author URI: http://nexus.zteo.com
 */
@@ -124,12 +124,13 @@ class PageThemeAdminManager {
     }
 
     function displayAdminHead() {
-        $remoteLoader = '/wp-admin/edit.php?post_type=page&pcompaction=pcomphtml';
-        $remoteSave = '/wp-admin/edit.php?post_type=page&pcompaction=pcompsave';
+        wp_enqueue_script('jquery');
+        $remoteLoader = get_option('siteurl').'/wp-admin/edit.php?post_type=page&pcompaction=pcomphtml';
+        $remoteSave = get_option('siteurl').'/wp-admin/edit.php?post_type=page&pcompaction=pcompsave';
         $loadingHTML = '<img src="'.plugin_dir_url(__FILE__)."loading.gif\" />";
         ?>
         <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) ?>emposha/fcbklistselection.css" type="text/css" media="screen" />
-        <script type="text/javascript" src="<?php echo plugin_dir_url(__FILE__) ?>emposha/fcbklistselection.js" />
+        <script type="text/javascript" src="<?php echo plugin_dir_url(__FILE__) ?>emposha/fcbklistselection.js"></script>
         <script type="text/javascript" language="JavaScript">
         var CCHandler = {
             current_theme_screen_comp: null,
