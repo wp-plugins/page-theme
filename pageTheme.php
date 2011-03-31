@@ -3,7 +3,7 @@
 Plugin Name: Page Theme
 Plugin URI: http://wordpress.org/extend/plugins/page-theme/
 Description: Per-page, per-post theme selection. Works with both SEO and non-SEO permalinks.
-Version: 1.4
+Version: 1.5
 Author: Chris Ravenscroft
 Author URI: http://nexus.zteo.com
 */
@@ -34,6 +34,12 @@ if(strlen($ruri) >= 2) {
     if($c !== false) {
         $pageTheme = new PageTheme(strtolower(str_replace('/', '', substr($ruri, $c))));
     }
+    else {
+        $pageTheme = new PageTheme('');
+    }
+}
+else if($ruri == '/') {
+    $pageTheme = new PageTheme('');
 }
 
 class PageThemeOptions {
@@ -349,8 +355,24 @@ class PageThemeThemeSwitcher {
 
         $options = PageThemeOptions::getInstance()->getOptions();
         
+        $pAliased = false;
+        if($page == '') {
+            if(get_option("show_on_front") == 'page') {
+                $page = intval(get_option("page_on_front"));
+                if($page > 0) {
+                    $pAliased = true;
+                }
+            }
+            if(!$pAliased) {
+                return;
+            }
+        }
+
         $page_id = false;
-        if(strncmp($page, '?p=', 3) == 0) {
+        if($pAliased) {
+            $page_id = $page;
+        }
+        else if(strncmp($page, '?p=', 3) == 0) {
             $page_id = substr($page, 3);
         }
         else if(strncmp($page, '?page_id=', 9) == 0) {
