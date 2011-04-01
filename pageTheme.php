@@ -3,7 +3,7 @@
 Plugin Name: Page Theme
 Plugin URI: http://wordpress.org/extend/plugins/page-theme/
 Description: Per-page, per-post theme selection. Works with both SEO and non-SEO permalinks.
-Version: 1.5
+Version: 1.6
 Author: Chris Ravenscroft
 Author URI: http://nexus.zteo.com
 */
@@ -27,15 +27,25 @@ if(!empty($_GET['pcompaction'])) {
 $ruri = $_SERVER['REQUEST_URI'];
 
 if(strlen($ruri) >= 2) {
-    // Oh man a bug in strrpos...why???
-#    $p = strrpos(rtrim($ruri, '/'), '/');
-    $c = strlen($ruri) - 2;
-    while($c > 0 && $ruri{$c} != '/') $c--;
-    if($c !== false) {
-        $pageTheme = new PageTheme(strtolower(str_replace('/', '', substr($ruri, $c))));
+    $pageId = false;
+    list($first, $second) = explode('?', $ruri);
+    if(!empty($second)) {
+        $fragments = explode('&', substr($ruri, ($p + 1)));
+        foreach($fragments as $fragment) {
+            $bits = explode('=', $fragment);
+            if($bits[0] == 'p' || $bits[0] == 'page') {
+                $pageId = intval($bits[1]);
+                break;
+            }
+        }
+    }
+    if(false !== $pageId) {
+        $pageTheme = new PageTheme($pageId);
     }
     else {
-        $pageTheme = new PageTheme('');
+        $c = strlen($first) - 2;
+        while($c > 0 && $first{$c} != '/') $c--;
+        $pageTheme = new PageTheme(strtolower(str_replace('/', '', substr($first, $c))));
     }
 }
 else if($ruri == '/') {
