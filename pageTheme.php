@@ -3,7 +3,7 @@
 Plugin Name: Page Theme
 Plugin URI: http://wordpress.org/extend/plugins/page-theme/
 Description: Per-page, per-post theme selection. Works with both SEO and non-SEO permalinks.
-Version: 1.6
+Version: 3.5
 Author: Chris Ravenscroft
 Author URI: http://nexus.zteo.com
 */
@@ -189,7 +189,7 @@ class PageThemeAdminManager {
                     }
                 });
                 updateGalleryUsingSelect = function() {
-                    var selected = jQuery('#theme option::selected')[0].value;
+                    var selected = jQuery('#theme option:selected')[0].value;
                     jQuery('#fcbklist').each(function() {
                         jQuery(this).children().each(function() {
                             var myid = jQuery(this)[0].id;
@@ -205,7 +205,7 @@ class PageThemeAdminManager {
                 });
                 updateGalleryUsingSelect();
                 jQuery('#pthemesubmit').click(function() {
-                    var selected = jQuery('#theme option::selected')[0].value;
+                    var selected = jQuery('#theme option:selected')[0].value;
                     var post_id = CCHandler.current_theme_screen_comp.id.replace(/ptheme/, '');
                     jQuery.get(
                         '<?php echo $remoteSave; ?>',
